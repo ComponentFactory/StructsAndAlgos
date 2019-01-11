@@ -13,7 +13,6 @@ namespace DataStructures
     // Notes:
     //     Double in size when full 
     //     Reduce in half when quarter full (not at half full, to avoid hysteresis)
-    //     No wasted space because of linked list type pointers, but has wasted space from empty entries
     //
     public class DynamicArray<T>
     {
@@ -21,9 +20,6 @@ namespace DataStructures
 
         public DynamicArray(int capacity = 1)
         {
-            if (capacity < 1)
-                throw new ArgumentOutOfRangeException();
-
             Capacity = capacity;
             _storage = new T[Capacity];
         }
@@ -34,39 +30,24 @@ namespace DataStructures
         // O(1)
         public T this[int position]
         {
-            get
-            {
-                if ((position < 0) || (position >= Length))
-                    throw new IndexOutOfRangeException();
-
-                return _storage[position];
-            }
-
-            set
-            {
-                if ((position < 0) || (position >= Length))
-                    throw new IndexOutOfRangeException();
-
-                _storage[position] = value;
-            }
+            get { return _storage[position]; }
+            set { _storage[position] = value; }
         }
 
         // O(1) - average case
         // O(n) - worst case
         public void Append(T item)
         {
-            CheckForSpaceToAddOne();
+            CheckForSpace();
             _storage[Length++] = item;
         }
 
         // O(n)
         public void Insert(int position, T item)
         {
-            if ((position < 0) || (position > Length))
-                throw new IndexOutOfRangeException();
+            CheckForSpace();
 
-            CheckForSpaceToAddOne();
-
+            // Shift items to the right to make room for insert item
             for (int i = (Length - 1); i >= position; i--)
                 _storage[i + 1] = _storage[i];
 
@@ -77,9 +58,7 @@ namespace DataStructures
         // O(n)
         public void Delete(int position)
         {
-            if ((position < 0) || (position >= Length))
-                throw new IndexOutOfRangeException();
-
+            // Shift items to the left and overwrite the deleted entry
             for (int i = position; i < (Length - 1); i++)
                 _storage[i] = _storage[i + 1];
 
@@ -87,7 +66,7 @@ namespace DataStructures
             CheckForShrink();
         }
 
-        private void CheckForSpaceToAddOne()
+        private void CheckForSpace()
         {
             // Is there space to add another item?
             if (Length == Capacity)
