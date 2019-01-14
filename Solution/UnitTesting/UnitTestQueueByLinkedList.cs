@@ -4,7 +4,7 @@ using Xunit;
 
 namespace UnitTesting
 {
-    public class UnitTestDynamicQueueByLinkedList
+    public class UnitTestQueueByLinkedList
     {
         [Fact]
         public void None()

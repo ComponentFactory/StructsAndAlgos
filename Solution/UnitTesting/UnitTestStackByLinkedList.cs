@@ -4,7 +4,7 @@ using Xunit;
 
 namespace UnitTesting
 {
-    public class UnitTestDynamicStackByLinkedList
+    public class UnitTestStackByLinkedList
     {
         [Fact]
         public void None()

@@ -38,14 +38,14 @@ namespace DataStructures
         // O(n) - worst case
         public void Append(T item)
         {
-            CheckForSpace();
+            CheckForExpand();
             _storage[Length++] = item;
         }
 
         // O(n)
         public void Insert(int position, T item)
         {
-            CheckForSpace();
+            CheckForExpand();
 
             // Shift items to the right to make room for insert item
             for (int i = (Length - 1); i >= position; i--)
@@ -66,9 +66,9 @@ namespace DataStructures
             CheckForShrink();
         }
 
-        private void CheckForSpace()
+        private void CheckForExpand()
         {
-            // Is there space to add another item?
+            // If full then double in size
             if (Length == Capacity)
             {
                 Capacity *= 2;
@@ -83,7 +83,7 @@ namespace DataStructures
 
         private void CheckForShrink()
         {
-            // If only a quarter full, then shrink down
+            // If only a quarter full, then shrink by half
             if ((Capacity > 1) && (Length <= (Capacity / 4)))
             {
                 Capacity /= 2;
