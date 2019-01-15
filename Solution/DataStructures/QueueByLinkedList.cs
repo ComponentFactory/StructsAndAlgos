@@ -15,7 +15,7 @@ namespace DataStructures
     // Notes:
     //     Use for breadth-first search to track next node to process
     //
-    public class QueueByLinkedList<T>
+    public sealed class QueueByLinkedList<T>
     {
         private class Link
         {
@@ -49,6 +49,9 @@ namespace DataStructures
         // O(1)
         public T Dequeue()
         {
+            if (IsEmpty)
+                throw new ArgumentException("Queue is empty.");
+
             Link head = _head;
 
             _head = head.Next;

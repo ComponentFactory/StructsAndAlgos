@@ -15,7 +15,7 @@ namespace DataStructures
     // Notes:
     //     Use for depth-first search to track next node to process
     //
-    public class StackByLinkedList<T>
+    public sealed class StackByLinkedList<T>
     {
         private class Link
         {
@@ -44,6 +44,9 @@ namespace DataStructures
         // O(1)
         public T Pop()
         {
+            if (IsEmpty)
+                throw new ArgumentException("Stack is empty.");
+
             Link temp = _head;
             _head = _head.Next;
             return temp.Item;

@@ -4,18 +4,17 @@ namespace DataStructures
 {
     // Pro:
     //     Variable size
-    //     Fast lookup
+    //     Fast lookup and append
     //     Cache friendly, data is in a contiguous block
     //
     // Con:
-    //     Append has slow worst case
     //     Insert/Delete are slow due to copying entries
     //
     // Notes:
     //     Double in size when full 
     //     Reduce in half when quarter full (not at half full, to avoid hysteresis)
     //
-    public class DynamicArray<T>
+    public sealed class DynamicArray<T>
     {
         private T[] _storage;
 
@@ -37,7 +36,7 @@ namespace DataStructures
             get
             {
                 if ((position < 0) || (position >= Length))
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(position));
 
                 return _storage[position];
             }
@@ -45,14 +44,13 @@ namespace DataStructures
             set
             {
                 if ((position < 0) || (position >= Length))
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(position));
 
                 _storage[position] = value;
             }
         }
 
-        // O(1) - average case
-        // O(n) - worst case
+        // O(1) average case, O(n) worst case   
         public void Append(T item)
         {
             CheckForExpand();
@@ -63,7 +61,7 @@ namespace DataStructures
         public void Insert(int position, T item)
         {
             if ((position < 0) || (position > Length))
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(position));
 
             CheckForExpand();
 
@@ -79,7 +77,7 @@ namespace DataStructures
         public void Delete(int position)
         {
             if ((position < 0) || (position >= Length))
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(position));
 
             // Shift items to the left and overwrite the deleted entry
             for (int i = position; i < (Length - 1); i++)

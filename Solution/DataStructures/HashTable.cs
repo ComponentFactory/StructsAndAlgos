@@ -4,16 +4,17 @@ namespace DataStructures
 {
     // Pro:
     //     Variable size
-    //     Fast if hash function/values are well distributed
+    //     Fast, all operations are constant time on average
     //
     // Con:
-    //     Cache unfriendly, data is not in a single contiguous block
+    //     Cache unfriendly, data is split over many allocations
     //
     // Notes:
+    //     Needs a good hash function/distribution of hash values
     //     Double in size when load factor is 1
     //     Reduce in half when load factor falls below 0.25
     //
-    public class HashTable<T,U>
+    public sealed class HashTable<T,U>
     {
         private class Link
         {
@@ -36,13 +37,15 @@ namespace DataStructures
             get { return _links.Length; }
         }
 
+        // O(1) average case, O(n) worst case   
         public U this[T key]
         {
             get
             {
                 Link link = GetKeyLink(key);
+
                 if (link == null)
-                    throw new ApplicationException("Key not present.");
+                    throw new ApplicationException("Key not found.");
 
                 return link.Item;
             }
@@ -57,9 +60,11 @@ namespace DataStructures
             }
         }
 
+        // O(1) average case, O(n) worst case   
         public void Add(T key, U item)
         {
             Link link = GetKeyLink(key);
+
             if (link != null)
                 throw new ApplicationException("Key already present.");
 
@@ -77,6 +82,7 @@ namespace DataStructures
             CheckForExpand();
         }
 
+        // O(1) average case, O(n) worst case   
         public void Delete(T key)
         {
             int index = KeyToIndex(key);
@@ -101,7 +107,7 @@ namespace DataStructures
                 link = link.Next;
             }
 
-            throw new ApplicationException("Key not present.");
+            throw new ApplicationException("Key not found.");
         }
 
         private int KeyToIndex(T key)
