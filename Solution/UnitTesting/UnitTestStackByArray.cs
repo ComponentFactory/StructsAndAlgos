@@ -4,7 +4,7 @@ using Xunit;
 
 namespace UnitTesting
 {
-    public class UnitTestDynamicStackByArray
+    public class UnitTestStackByArray
     {
         [Fact]
         public void None()

@@ -12,18 +12,17 @@ namespace DataStructures
     //     Double in size when load factor is 1
     //     Reduce in half when load factor falls below 0.25
     //
-    public class HashTable<T,U>
+    public class HashSet<T>
     {
         private class Link
         {
             public T Key { get; set; }
-            public U Item { get; set; }
             public Link Next { get; set; }
         }
 
         private Link[] _links;
 
-        public HashTable()
+        public HashSet()
         {
             _links = new Link[7];
         }
@@ -35,28 +34,12 @@ namespace DataStructures
             get { return _links.Length; }
         }
 
-        public U this[T key]
+        public bool Contains(T key)
         {
-            get
-            {
-                Link link = GetKeyLink(key);
-                if (link == null)
-                    throw new ApplicationException("Key not present.");
-
-                return link.Item;
-            }
-
-            set
-            {
-                Link link = GetKeyLink(key);
-                if (link == null)
-                    Add(key, value);
-                else
-                    link.Item = value;
-            }
+            return (GetKeyLink(key) != null);
         }
 
-        public void Add(T key, U item)
+        public void Add(T key)
         {
             Link link = GetKeyLink(key);
             if (link != null)
@@ -67,7 +50,6 @@ namespace DataStructures
             link = new Link()
             {
                 Key = key,
-                Item = item,
                 Next = _links[index]
             };
 
@@ -144,13 +126,13 @@ namespace DataStructures
             _links = new Link[length];
             Count = 0;
 
-            // Put all key/values into the new table
+            // Put all keys into the new table
             for (int i = 0; i < old.Length; i++)
             {
                 Link link = old[i];
                 while (link != null)
                 {
-                    Add(link.Key, link.Item);
+                    Add(link.Key);
                     link = link.Next;
                 }
             }

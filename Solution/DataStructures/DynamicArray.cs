@@ -8,7 +8,7 @@ namespace DataStructures
     //     Cache friendly, data is in a contiguous block
     // Con:
     //     Append has slow worst case
-    //     Insert/Delete are slow
+    //     Insert/Delete are slow due to copying entries
     //
     // Notes:
     //     Double in size when full 
@@ -20,6 +20,9 @@ namespace DataStructures
 
         public DynamicArray(int capacity = 1)
         {
+            if (capacity < 1)
+                throw new ArgumentOutOfRangeException();
+
             Capacity = capacity;
             _storage = new T[Capacity];
         }
@@ -30,8 +33,21 @@ namespace DataStructures
         // O(1)
         public T this[int position]
         {
-            get { return _storage[position]; }
-            set { _storage[position] = value; }
+            get
+            {
+                if ((position < 0) || (position >= Length))
+                    throw new ArgumentOutOfRangeException();
+
+                return _storage[position];
+            }
+
+            set
+            {
+                if ((position < 0) || (position >= Length))
+                    throw new ArgumentOutOfRangeException();
+
+                _storage[position] = value;
+            }
         }
 
         // O(1) - average case
@@ -45,6 +61,9 @@ namespace DataStructures
         // O(n)
         public void Insert(int position, T item)
         {
+            if ((position < 0) || (position > Length))
+                throw new ArgumentOutOfRangeException();
+
             CheckForExpand();
 
             // Shift items to the right to make room for insert item
@@ -58,6 +77,9 @@ namespace DataStructures
         // O(n)
         public void Delete(int position)
         {
+            if ((position < 0) || (position >= Length))
+                throw new ArgumentOutOfRangeException();
+
             // Shift items to the left and overwrite the deleted entry
             for (int i = position; i < (Length - 1); i++)
                 _storage[i] = _storage[i + 1];
@@ -70,30 +92,27 @@ namespace DataStructures
         {
             // If full then double in size
             if (Length == Capacity)
-            {
-                Capacity *= 2;
-
-                T[] doubled = new T[Capacity];
-                for (int i = 0; i < _storage.Length; i++)
-                    doubled[i] = _storage[i];
-
-                _storage = doubled;
-            }
+                Resize(Capacity * 2);
         }
 
         private void CheckForShrink()
         {
             // If only a quarter full, then shrink by half
             if ((Capacity > 1) && (Length <= (Capacity / 4)))
-            {
-                Capacity /= 2;
+                Resize(Capacity / 2);
+        }
 
-                T[] halfed = new T[Capacity];
-                for (int i = 0; i < Length; i++)
-                    halfed[i] = _storage[i];
+        private void Resize(int capacity)
+        {
+            Capacity = capacity;
 
-                _storage = halfed;
-            }
+            T[] resized = new T[Capacity];
+
+            int toCopy = Math.Min(resized.Length, _storage.Length);
+            for (int i = 0; i < toCopy; i++)
+                resized[i] = _storage[i];
+
+            _storage = resized;
         }
     }
 }
