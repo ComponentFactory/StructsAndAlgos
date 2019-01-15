@@ -5,6 +5,7 @@ namespace DataStructures
     // Pro:
     //     Variable size
     //     Fast if hash function/values are well distributed
+    //
     // Con:
     //     Cache unfriendly, data is not in a single contiguous block
     //

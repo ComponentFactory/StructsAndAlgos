@@ -6,6 +6,7 @@ namespace DataStructures
     //     Variable size
     //     Fast lookup
     //     Cache friendly, data is in a contiguous block
+    //
     // Con:
     //     Append has slow worst case
     //     Insert/Delete are slow due to copying entries
