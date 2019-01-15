@@ -57,5 +57,17 @@ namespace UnitTesting
             Assert.Equal(1, sa.Pop());
             Assert.True(sa.IsEmpty);
         }
+
+        [Fact]
+        public void Bulk()
+        {
+            StackByArray<int> sa = new StackByArray<int>();
+
+            for (int i = 0; i < 1000000; i++)
+                sa.Push(i);
+
+            for (int i = 999999; i >= 0; i--)
+                Assert.Equal(i, sa.Pop());
+        }
     }
 }

@@ -57,5 +57,17 @@ namespace UnitTesting
             Assert.Equal(1, sl.Pop());
             Assert.True(sl.IsEmpty);
         }
+
+        [Fact]
+        public void Bulk()
+        {
+            StackByLinkedList<int> sl = new StackByLinkedList<int>();
+
+            for (int i = 0; i < 1000000; i++)
+                sl.Push(i);
+
+            for (int i = 999999; i >= 0; i--)
+                Assert.Equal(i, sl.Pop());
+        }
     }
 }
