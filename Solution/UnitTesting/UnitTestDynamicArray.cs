@@ -1,5 +1,6 @@
 using DataStructures;
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace UnitTesting
@@ -232,6 +233,36 @@ namespace UnitTesting
             Assert.Equal(97, da[1]);
             Assert.Equal(96, da[2]);
             Assert.Equal(98, da[3]);
+        }
+
+        [Fact]
+        public void BulkAppendDelete()
+        {
+            DynamicArray<int> da = new DynamicArray<int>();
+
+            for (int i = 0; i < 1000000; i++)
+                da.Append(i);
+
+            for (int i = 999999; i >= 0; i--)
+                da.Delete(i);
+
+            Assert.Equal(0, da.Length);
+            Assert.Equal(1, da.Capacity);
+        }
+
+        [Fact]
+        public void BulkInsertDelete()
+        {
+            DynamicArray<int> da = new DynamicArray<int>();
+
+            for (int i = 0; i < 10000; i++)
+                da.Insert(0, i);
+
+            for (int i = 0; i < 10000; i++)
+                da.Delete(0);
+
+            Assert.Equal(0, da.Length);
+            Assert.Equal(1, da.Capacity);
         }
     }
 }

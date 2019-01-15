@@ -4,6 +4,7 @@ namespace DataStructures
 {
     // Pro:
     //     Variable size
+    //     Flexible keys, not just integer positions
     //     Fast, all operations are constant time on average
     //
     // Con:

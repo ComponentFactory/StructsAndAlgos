@@ -48,10 +48,10 @@ namespace UnitTesting
         {
             HashTable<int, int> ht = new HashTable<int, int>();
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 1000000; i++)
                 ht.Add(i, i * 3);
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 1000000; i++)
                 Assert.Equal(i * 3, ht[i]);
         }
 
