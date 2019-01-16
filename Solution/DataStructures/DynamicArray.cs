@@ -16,7 +16,7 @@ namespace DataStructures
     //
     public sealed class DynamicArray<T>
     {
-        private T[] _storage;
+        private T[] _data;
 
         public DynamicArray(int capacity = 1)
         {
@@ -24,7 +24,7 @@ namespace DataStructures
                 throw new ArgumentOutOfRangeException();
 
             Capacity = capacity;
-            _storage = new T[Capacity];
+            _data = new T[Capacity];
         }
 
         public int Length { get; private set; }
@@ -38,7 +38,7 @@ namespace DataStructures
                 if ((position < 0) || (position >= Length))
                     throw new ArgumentOutOfRangeException(nameof(position));
 
-                return _storage[position];
+                return _data[position];
             }
 
             set
@@ -46,30 +46,30 @@ namespace DataStructures
                 if ((position < 0) || (position >= Length))
                     throw new ArgumentOutOfRangeException(nameof(position));
 
-                _storage[position] = value;
+                _data[position] = value;
             }
         }
 
         // O(1) average case, O(n) worst case   
-        public void Append(T item)
+        public void Append(T data)
         {
             CheckForExpand();
-            _storage[Length++] = item;
+            _data[Length++] = data;
         }
 
         // O(n)
-        public void Insert(int position, T item)
+        public void Insert(int position, T data)
         {
             if ((position < 0) || (position > Length))
                 throw new ArgumentOutOfRangeException(nameof(position));
 
             CheckForExpand();
 
-            // Shift items to the right to make room for insert item
+            // Shift data to the right to make room for inserting data
             for (int i = (Length - 1); i >= position; i--)
-                _storage[i + 1] = _storage[i];
+                _data[i + 1] = _data[i];
 
-            _storage[position] = item;
+            _data[position] = data;
             Length++;
         }
 
@@ -79,9 +79,9 @@ namespace DataStructures
             if ((position < 0) || (position >= Length))
                 throw new ArgumentOutOfRangeException(nameof(position));
 
-            // Shift items to the left and overwrite the deleted entry
+            // Shift data to the left and overwrite the deleted entry
             for (int i = position; i < (Length - 1); i++)
-                _storage[i] = _storage[i + 1];
+                _data[i] = _data[i + 1];
 
             Length--;
             CheckForShrink();
@@ -107,11 +107,11 @@ namespace DataStructures
 
             T[] resized = new T[Capacity];
 
-            int toCopy = Math.Min(resized.Length, _storage.Length);
+            int toCopy = Math.Min(resized.Length, _data.Length);
             for (int i = 0; i < toCopy; i++)
-                resized[i] = _storage[i];
+                resized[i] = _data[i];
 
-            _storage = resized;
+            _data = resized;
         }
     }
 }

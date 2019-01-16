@@ -8,6 +8,7 @@ namespace DataStructures
     //     Fast, all operations are constant time on average
     //
     // Con:
+    //     Unordered
     //     Cache unfriendly, data is split over many allocations
     //
     // Notes:
@@ -20,7 +21,7 @@ namespace DataStructures
         private class Link
         {
             public T Key { get; set; }
-            public U Item { get; set; }
+            public U Data { get; set; }
             public Link Next { get; set; }
         }
 
@@ -48,7 +49,7 @@ namespace DataStructures
                 if (link == null)
                     throw new ApplicationException("Key not found.");
 
-                return link.Item;
+                return link.Data;
             }
 
             set
@@ -57,12 +58,12 @@ namespace DataStructures
                 if (link == null)
                     Add(key, value);
                 else
-                    link.Item = value;
+                    link.Data = value;
             }
         }
 
         // O(1) average case, O(n) worst case   
-        public void Add(T key, U item)
+        public void Add(T key, U data)
         {
             Link link = GetKeyLink(key);
 
@@ -74,7 +75,7 @@ namespace DataStructures
             link = new Link()
             {
                 Key = key,
-                Item = item,
+                Data = data,
                 Next = _links[index]
             };
 
@@ -158,7 +159,7 @@ namespace DataStructures
                 Link link = old[i];
                 while (link != null)
                 {
-                    Add(link.Key, link.Item);
+                    Add(link.Key, link.Data);
                     link = link.Next;
                 }
             }

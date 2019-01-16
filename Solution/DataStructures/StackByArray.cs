@@ -26,9 +26,9 @@ namespace DataStructures
         }
 
         // O(1) average case, O(n) worst case       
-        public void Push(T item)
+        public void Push(T data)
         {
-            _array.Append(item);
+            _array.Append(data);
         }
 
         // O(1) average case, O(n) worst case  

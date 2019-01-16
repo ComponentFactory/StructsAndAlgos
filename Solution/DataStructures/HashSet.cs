@@ -8,6 +8,7 @@ namespace DataStructures
     //     Fast, all operations are constant time on average
     //
     // Con:
+    //     Unordered
     //     Cache unfriendly, data is not in a single contiguous block
     //
     // Notes:

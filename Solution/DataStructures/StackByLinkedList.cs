@@ -19,7 +19,7 @@ namespace DataStructures
     {
         private class Link
         {
-            public T Item { get; set; }
+            public T Data { get; set; }
             public Link Next { get; set; }
         }
 
@@ -36,7 +36,7 @@ namespace DataStructures
         {
             _head = new Link()
             {
-                Item = item,
+                Data = item,
                 Next = _head
             };
         }
@@ -49,7 +49,7 @@ namespace DataStructures
 
             Link temp = _head;
             _head = _head.Next;
-            return temp.Item;
+            return temp.Data;
         }
     }
 }

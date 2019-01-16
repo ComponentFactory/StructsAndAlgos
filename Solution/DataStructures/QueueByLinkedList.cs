@@ -19,7 +19,7 @@ namespace DataStructures
     {
         private class Link
         {
-            public T Item { get; set; }
+            public T Data { get; set; }
             public Link Next { get; set; }
         }
 
@@ -33,9 +33,9 @@ namespace DataStructures
         }
 
         // O(1)
-        public void Enqueue(T item)
+        public void Enqueue(T data)
         {
-            Link tail = new Link() { Item = item };
+            Link tail = new Link() { Data = data };
 
             if (_tail != null)
                 _tail.Next = tail;
@@ -58,7 +58,7 @@ namespace DataStructures
             if (_head == null)
                 _tail = null;
 
-            return head.Item;
+            return head.Data;
         }
     }
 }
