@@ -13,7 +13,7 @@ namespace DataStructures
     //     Cache unfriendly, data is not in a single contiguous block
     //
     // Notes:
-    //     Slower than hashtable but keeps the keys in order, so can quickly get list of keys
+    //     Slower than hashtable but keeps the keys in order, so you can quickly get a list of keys
     //
     public class BinarySearchTree<T, U> where T : IComparable<T>
     {

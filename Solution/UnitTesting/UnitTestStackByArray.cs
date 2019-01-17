@@ -59,7 +59,7 @@ namespace UnitTesting
         }
 
         [Fact]
-        public void Bulk()
+        public void BulkOne()
         {
             StackByArray<int> sa = new StackByArray<int>();
 
@@ -67,6 +67,27 @@ namespace UnitTesting
                 sa.Push(i);
 
             for (int i = 999999; i >= 0; i--)
+                Assert.Equal(i, sa.Pop());
+        }
+
+        [Fact]
+        public void BulkRepeat()
+        {
+            StackByArray<int> sa = new StackByArray<int>();
+
+            for (int i = 0; i < 10000; i++)
+                sa.Push(i);
+
+            for (int j= 0; j<1000; j++)
+            {
+                for (int i = 0; i < 1000; i++)
+                    sa.Push(i);
+
+                for (int i = 999; i >= 0; i--)
+                    Assert.Equal(i, sa.Pop());
+            }
+
+            for (int i = 9999; i >= 0; i--)
                 Assert.Equal(i, sa.Pop());
         }
     }
