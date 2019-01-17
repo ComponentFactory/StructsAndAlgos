@@ -7,13 +7,13 @@ namespace DataStructures
     // Pro:
     //     Variable size
     //     Flexible keys, not just integer positions
-    //     Keys are kept ordered
+    //     Ordered enumeration of keys
     //
     // Con:
     //     Cache unfriendly, data is not in a single contiguous block
     //
     // Notes:
-    //     Slower than hashtable but keeps the keys in order, so you can quickly get a list of keys
+    //     Slower than hashtable but ordered
     //
     public class BinarySearchTree<T, U> where T : IComparable<T>
     {
@@ -154,6 +154,7 @@ namespace DataStructures
             return node;
         }
 
+        // O(n)
         public List<T> KeysByRecursion()
         {
             List<T> orderedKeys = new List<T>();
@@ -161,6 +162,7 @@ namespace DataStructures
             return orderedKeys;
         }
 
+        // O(n)
         public List<T> KeysByQueue()
         {
             List<T> orderedKeys = new List<T>();
