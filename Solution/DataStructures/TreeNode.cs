@@ -7,7 +7,7 @@ namespace DataStructures
         public T Key { get; set; }
         public U Data { get; set; }
 
-        public TreeNode<T, U> Left { get; set; }
-        public TreeNode<T, U> Right { get; set; }
+        public TreeNode<T, U> Left;
+        public TreeNode<T, U> Right;
     }
 }

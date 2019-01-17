@@ -4,6 +4,17 @@ using System.Text;
 
 namespace DataStructures
 {
+    // Pro:
+    //     Variable size
+    //     Flexible keys, not just integer positions
+    //     Keys are kept ordered
+    //
+    // Con:
+    //     Cache unfriendly, data is not in a single contiguous block
+    //
+    // Notes:
+    //     Slower than hashtable but keeps the keys in order, so can quickly get list of keys
+    //
     public class BinarySearchTree<T, U> where T : IComparable<T>
     {
         private TreeNode<T, U> _root;
@@ -88,7 +99,59 @@ namespace DataStructures
         // O(log n) average case, O(n) worst case   
         public void Delete(T key)
         {
-            // TODO
+            if (_root != null)
+            {
+                _root = DeleteImpl(_root, key);
+                Count--;
+            }
+            else
+                throw new ApplicationException("Key not found.");
+        }
+
+        private TreeNode<T, U> DeleteImpl(TreeNode<T, U> node, T key)
+        {
+            // Is this the node to be deleted
+            int compare = key.CompareTo(node.Key);
+            if (compare == 0)
+            {
+                // Has no children, replace this node with null
+                if ((node.Left == null) && (node.Right == null))
+                    return null;
+
+                // Has one child, replace this node with the one child
+                if ((node.Left != null) && (node.Right == null))
+                    return node.Left;
+                else if ((node.Left == null) && (node.Right != null))
+                    return node.Right;
+
+                // Has two children, find successor Key on the right side
+                TreeNode<T, U> next = node.Right;
+                while (next.Left != null)
+                    next = next.Left;
+
+                // Copy successor node Key/Data to the top node
+                node.Key = next.Key;
+                node.Data = next.Data;
+
+                // Remove the redundant successor from the right side
+                node.Right = DeleteImpl(node.Right, next.Key);
+            }
+            else if (compare < 0)
+            {
+                if (node.Left != null)
+                    node.Left = DeleteImpl(node.Left, key);
+                else
+                    throw new ApplicationException("Key not found.");
+            }
+            else
+            {
+                if (node.Right != null)
+                    node.Right = DeleteImpl(node.Right, key);
+                else
+                    throw new ApplicationException("Key not found.");
+            }
+
+            return node;
         }
 
         public List<T> KeysByRecursion()

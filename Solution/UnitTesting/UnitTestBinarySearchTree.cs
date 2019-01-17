@@ -289,8 +289,11 @@ namespace UnitTesting
                 for (int i = 1; i <= 1000; i++)
                 {
                     int rand = random.Next();
-                    ordered.Add(rand);
-                    bst.Insert(rand, i);
+                    if (!bst.Contains(rand))
+                    {
+                        ordered.Add(rand);
+                        bst.Insert(rand, i);
+                    }
                 }
 
                 ordered.Sort();
@@ -305,6 +308,195 @@ namespace UnitTesting
                 Assert.Equal(ordered.Count, keys2.Count);
                 for (int i = 0; i < ordered.Count; i++)
                     Assert.Equal(ordered[i], keys2[i]);
+            }
+        }
+
+        [Fact]
+        public void Delete1()
+        {
+            BinarySearchTree<int, int> bst = new BinarySearchTree<int, int>();
+
+            bst.Insert(10, 20);
+            bst.Delete(10);
+
+            Assert.Equal(0, bst.Count);
+        }
+
+        [Fact]
+        public void Delete2LA()
+        {
+            BinarySearchTree<int, int> bst = new BinarySearchTree<int, int>();
+
+            bst.Insert(10, 20);
+            bst.Insert(5, 21);
+
+            bst.Delete(5);
+            Assert.Equal(1, bst.Count);
+            Assert.True(bst.Contains(10));
+            Assert.False(bst.Contains(5));
+            Assert.Equal(20, bst.Find(10));
+
+            List<int> keys1 = bst.KeysByRecursion();
+            Assert.Single(keys1);
+            Assert.Equal(10, keys1[0]);
+        }
+
+        [Fact]
+        public void Delete2LB()
+        {
+            BinarySearchTree<int, int> bst = new BinarySearchTree<int, int>();
+
+            bst.Insert(10, 20);
+            bst.Insert(5, 21);
+
+            bst.Delete(10);
+            Assert.Equal(1, bst.Count);
+            Assert.True(bst.Contains(5));
+            Assert.False(bst.Contains(10));
+            Assert.Equal(21, bst.Find(5));
+
+            List<int> keys1 = bst.KeysByRecursion();
+            Assert.Single(keys1);
+            Assert.Equal(5, keys1[0]);
+        }
+
+        [Fact]
+        public void Delete2RA()
+        {
+            BinarySearchTree<int, int> bst = new BinarySearchTree<int, int>();
+
+            bst.Insert(5, 21);
+            bst.Insert(10, 20);
+
+            bst.Delete(5);
+            Assert.Equal(1, bst.Count);
+            Assert.True(bst.Contains(10));
+            Assert.False(bst.Contains(5));
+            Assert.Equal(20, bst.Find(10));
+
+            List<int> keys1 = bst.KeysByRecursion();
+            Assert.Single(keys1);
+            Assert.Equal(10, keys1[0]);
+        }
+
+        [Fact]
+        public void Delete2RB()
+        {
+            BinarySearchTree<int, int> bst = new BinarySearchTree<int, int>();
+
+            bst.Insert(5, 21);
+            bst.Insert(10, 20);
+
+            bst.Delete(10);
+            Assert.Equal(1, bst.Count);
+            Assert.True(bst.Contains(5));
+            Assert.False(bst.Contains(10));
+            Assert.Equal(21, bst.Find(5));
+
+            List<int> keys1 = bst.KeysByRecursion();
+            Assert.Single(keys1);
+            Assert.Equal(5, keys1[0]);
+        }
+
+        [Fact]
+        public void Delete3A()
+        {
+            BinarySearchTree<int, int> bst = new BinarySearchTree<int, int>();
+
+            bst.Insert(10, 20);
+            bst.Insert(5, 21);
+            bst.Insert(15, 22);
+
+            bst.Delete(5);
+            Assert.Equal(2, bst.Count);
+            Assert.True(bst.Contains(10));
+            Assert.True(bst.Contains(15));
+            Assert.False(bst.Contains(5));
+            Assert.Equal(20, bst.Find(10));
+            Assert.Equal(22, bst.Find(15));
+
+            List<int> keys1 = bst.KeysByRecursion();
+            Assert.Equal(2, keys1.Count);
+            Assert.Equal(10, keys1[0]);
+            Assert.Equal(15, keys1[1]);
+        }
+
+        [Fact]
+        public void Delete3B()
+        {
+            BinarySearchTree<int, int> bst = new BinarySearchTree<int, int>();
+
+            bst.Insert(10, 20);
+            bst.Insert(5, 21);
+            bst.Insert(15, 22);
+
+            bst.Delete(10);
+            Assert.Equal(2, bst.Count);
+            Assert.True(bst.Contains(5));
+            Assert.True(bst.Contains(15));
+            Assert.False(bst.Contains(10));
+            Assert.Equal(21, bst.Find(5));
+            Assert.Equal(22, bst.Find(15));
+
+            List<int> keys1 = bst.KeysByRecursion();
+            Assert.Equal(2, keys1.Count);
+            Assert.Equal(5, keys1[0]);
+            Assert.Equal(15, keys1[1]);
+        }
+
+        [Fact]
+        public void Delete3C()
+        {
+            BinarySearchTree<int, int> bst = new BinarySearchTree<int, int>();
+
+            bst.Insert(10, 20);
+            bst.Insert(5, 21);
+            bst.Insert(15, 22);
+
+            bst.Delete(15);
+            Assert.Equal(2, bst.Count);
+            Assert.True(bst.Contains(5));
+            Assert.True(bst.Contains(10));
+            Assert.False(bst.Contains(15));
+            Assert.Equal(21, bst.Find(5));
+            Assert.Equal(20, bst.Find(10));
+
+            List<int> keys1 = bst.KeysByRecursion();
+            Assert.Equal(2, keys1.Count);
+            Assert.Equal(5, keys1[0]);
+            Assert.Equal(10, keys1[1]);
+        }
+
+        [Fact]
+        public void DeleteRandom()
+        {
+            for (int j = 0; j < 100; j++)
+            {
+                BinarySearchTree<int, int> bst = new BinarySearchTree<int, int>();
+                List<int> ordered = new List<int>();
+
+                Random random = new Random();
+                for (int i = 1; i <= 1000; i++)
+                {
+                    int rand = random.Next();
+                    if (!bst.Contains(rand))
+                    {
+                        ordered.Add(rand);
+                        bst.Insert(rand, i);
+                    }
+                }
+
+                ordered.Sort();
+                Assert.Equal(ordered.Count, bst.Count);
+
+                while(ordered.Count > 0)
+                {
+                    int rand = random.Next(ordered.Count);
+                    bst.Delete(ordered[rand]);
+                    ordered.RemoveAt(rand);
+                }
+
+                Assert.Equal(0, bst.Count);
             }
         }
     }
