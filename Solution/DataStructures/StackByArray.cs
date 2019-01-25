@@ -15,7 +15,7 @@ namespace DataStructures
     // Notes:
     //     Use for depth-first search to track next node to process
     //
-    public sealed class StackByArray<T>
+    public class StackByArray<T>
     {
         private DynamicArray<T> _array = new DynamicArray<T>();
 

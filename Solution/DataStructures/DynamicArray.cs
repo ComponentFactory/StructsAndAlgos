@@ -14,7 +14,7 @@ namespace DataStructures
     //     Double in size when full 
     //     Reduce in half when quarter full (not at half full, to avoid hysteresis)
     //
-    public sealed class DynamicArray<T>
+    public class DynamicArray<T>
     {
         private T[] _data;
 
@@ -51,10 +51,11 @@ namespace DataStructures
         }
 
         // O(1) average case, O(n) worst case   
-        public void Append(T data)
+        public int Append(T data)
         {
             CheckForExpand();
             _data[Length++] = data;
+            return Length - 1;
         }
 
         // O(n)

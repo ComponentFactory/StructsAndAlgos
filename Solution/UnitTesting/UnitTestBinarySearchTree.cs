@@ -280,7 +280,7 @@ namespace UnitTesting
         [Fact]
         public void InsertRandom()
         {
-            for(int j = 0; j < 100; j++)
+            for(int j = 0; j < 300; j++)
             {
                 BinarySearchTree<int, int> bst = new BinarySearchTree<int, int>();
                 List<int> ordered = new List<int>();
@@ -470,7 +470,7 @@ namespace UnitTesting
         [Fact]
         public void DeleteRandom()
         {
-            for (int j = 0; j < 100; j++)
+            for (int j = 0; j < 300; j++)
             {
                 BinarySearchTree<int, int> bst = new BinarySearchTree<int, int>();
                 List<int> ordered = new List<int>();

@@ -8,6 +8,7 @@ namespace DataStructures
     //     Variable size
     //     Flexible keys, not just integer positions
     //     Ordered enumeration of keys
+    //     Balanced O(log n) but degenerate case becomes O(n) 
     //
     // Con:
     //     Cache unfriendly, data is not in a single contiguous block
@@ -17,14 +18,23 @@ namespace DataStructures
     //
     public class BinarySearchTree<T, U> where T : IComparable<T>
     {
-        private TreeNode<T, U> _root;
+        private class TreeNode
+        {
+            public T Key { get; set; }
+            public U Data { get; set; }
+
+            public TreeNode Left { get; set; }
+            public TreeNode Right { get; set; }
+        }
+
+        private TreeNode _root;
 
         public int Count { get; private set; }
 
         // O(log n) average case, O(n) worst case   
         public bool Contains(T key)
         {
-            TreeNode<T, U> node = _root;
+            TreeNode node = _root;
             while(node != null)
             {
                 int compare = key.CompareTo(node.Key);
@@ -42,7 +52,7 @@ namespace DataStructures
         // O(log n) average case, O(n) worst case   
         public U Find(T key)
         {
-            TreeNode<T, U> node = _root;
+            TreeNode node = _root;
             while (node != null)
             {
                 int compare = key.CompareTo(node.Key);
@@ -61,10 +71,10 @@ namespace DataStructures
         public void Insert(T key, U data)
         {
             if (_root == null)
-                _root = new TreeNode<T, U>() { Key = key, Data = data };
+                _root = new TreeNode() { Key = key, Data = data };
             else
             {
-                TreeNode<T, U> node = _root;
+                TreeNode node = _root;
                 while (node != null)
                 {
                     int compare = key.CompareTo(node.Key);
@@ -74,7 +84,7 @@ namespace DataStructures
                     {
                         if (node.Left == null)
                         {
-                            node.Left = new TreeNode<T, U>() { Key = key, Data = data };
+                            node.Left = new TreeNode() { Key = key, Data = data };
                             break;
                         }
                         else
@@ -84,7 +94,7 @@ namespace DataStructures
                     {
                         if (node.Right == null)
                         {
-                            node.Right = new TreeNode<T, U>() { Key = key, Data = data };
+                            node.Right = new TreeNode() { Key = key, Data = data };
                             break;
                         }
                         else
@@ -108,7 +118,7 @@ namespace DataStructures
                 throw new ApplicationException("Key not found.");
         }
 
-        private TreeNode<T, U> DeleteImpl(TreeNode<T, U> node, T key)
+        private TreeNode DeleteImpl(TreeNode node, T key)
         {
             // Is this the node to be deleted
             int compare = key.CompareTo(node.Key);
@@ -125,7 +135,7 @@ namespace DataStructures
                     return node.Right;
 
                 // Has two children, find successor Key on the right side
-                TreeNode<T, U> next = node.Right;
+                TreeNode next = node.Right;
                 while (next.Left != null)
                     next = next.Left;
 
@@ -167,8 +177,8 @@ namespace DataStructures
         {
             List<T> orderedKeys = new List<T>();
 
-            StackByArray<TreeNode<T, U>> stack = new StackByArray<TreeNode<T, U>>();
-            TreeNode<T, U> node = _root;
+            StackByArray<TreeNode> stack = new StackByArray<TreeNode>();
+            TreeNode node = _root;
 
             while ((node != null) || !stack.IsEmpty)
             {
@@ -186,7 +196,7 @@ namespace DataStructures
             return orderedKeys;
         }
 
-        private void KeysByRecursionImpl(TreeNode<T, U> node, List<T> orderedKeys)
+        private void KeysByRecursionImpl(TreeNode node, List<T> orderedKeys)
         {
             if (node != null)
             {

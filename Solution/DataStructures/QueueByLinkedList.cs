@@ -15,7 +15,7 @@ namespace DataStructures
     // Notes:
     //     Use for breadth-first search to track next node to process
     //
-    public sealed class QueueByLinkedList<T>
+    public class QueueByLinkedList<T>
     {
         private class Link
         {

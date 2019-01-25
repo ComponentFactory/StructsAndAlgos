@@ -16,7 +16,7 @@ namespace DataStructures
     //     Double in size when load factor is 1
     //     Reduce in half when load factor falls below 0.25
     //
-    public sealed class HashSet<T>
+    public class HashSet<T>
     {
         private class Link
         {

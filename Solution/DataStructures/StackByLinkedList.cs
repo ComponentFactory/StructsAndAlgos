@@ -15,7 +15,7 @@ namespace DataStructures
     // Notes:
     //     Use for depth-first search to track next node to process
     //
-    public sealed class StackByLinkedList<T>
+    public class StackByLinkedList<T>
     {
         private class Link
         {

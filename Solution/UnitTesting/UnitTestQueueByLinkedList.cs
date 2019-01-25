@@ -104,10 +104,10 @@ namespace UnitTesting
         {
             QueueByLinkedList<int> sa = new QueueByLinkedList<int>();
 
-            for (int i = 0; i < 1000000; i++)
+            for (int i = 0; i < 2000000; i++)
                 sa.Enqueue(i);
 
-            for (int i = 0; i < 1000000; i++)
+            for (int i = 0; i < 2000000; i++)
                 Assert.Equal(i, sa.Dequeue());
         }
     }
