@@ -79,7 +79,7 @@ namespace DataStructures
                 {
                     int compare = key.CompareTo(node.Key);
                     if (compare == 0)
-                        throw new ApplicationException("Key already used.");
+                        return;
                     else if (compare < 0)
                     {
                         if (node.Left == null)

@@ -49,19 +49,19 @@ namespace DataStructures
         {
             Link link = GetKeyLink(key);
             if (link != null)
-                throw new ApplicationException("Key already present.");
-
-            int index = KeyToIndex(key);
-
-            link = new Link()
             {
-                Key = key,
-                Next = _links[index]
-            };
+                int index = KeyToIndex(key);
 
-            _links[index] = link;
-            Count++;
-            CheckForExpand();
+                link = new Link()
+                {
+                    Key = key,
+                    Next = _links[index]
+                };
+
+                _links[index] = link;
+                Count++;
+                CheckForExpand();
+            }
         }
 
         // O(1) average case, O(n) worst case   

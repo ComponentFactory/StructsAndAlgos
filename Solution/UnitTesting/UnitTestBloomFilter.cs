@@ -106,5 +106,57 @@ namespace UnitTesting
                     Assert.True(bf.Contains(check));
             }
         }
+
+        [Fact]
+        public void CompareBloomFilter()
+        {
+            DataStructures.BloomFilter<int> bf = new DataStructures.BloomFilter<int>(100000);
+
+            Random rand = new Random();
+            for (int i = 0; i < 50000; i++)
+                bf.Add(rand.Next(50000));
+
+            for (int i = 0; i < 5000000; i++)
+                bf.Contains(i % 50000);
+        }
+
+        [Fact]
+        public void CompareHashSet()
+        {
+            DataStructures.HashSet<int> ht = new DataStructures.HashSet<int>();
+
+            Random rand = new Random();
+            for (int i = 0; i < 50000; i++)
+                ht.Add(rand.Next(50000));
+
+            for (int i = 0; i < 5000000; i++)
+                ht.Contains(i % 50000);
+        }
+
+        [Fact]
+        public void CompareHashTable()
+        {
+            DataStructures.HashTable<int, int> ht = new DataStructures.HashTable<int, int>();
+
+            Random rand = new Random();
+            for (int i = 0; i < 50000; i++)
+                ht.Add(rand.Next(), i);
+
+            for (int i = 0; i < 5000000; i++)
+                ht.Contains(i % 50000);
+        }
+
+        [Fact]
+        public void CompareBinarySearchTree()
+        {
+            DataStructures.BinarySearchTree<int, int> bst = new DataStructures.BinarySearchTree<int, int>();
+
+            Random rand = new Random();
+            for (int i = 0; i < 50000; i++)
+                bst.Insert(rand.Next(50000), i);
+
+            for (int i = 0; i < 5000000; i++)
+                bst.Contains(i % 50000);
+        }
     }
 }
