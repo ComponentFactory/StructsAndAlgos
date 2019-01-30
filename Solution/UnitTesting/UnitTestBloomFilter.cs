@@ -116,7 +116,7 @@ namespace UnitTesting
             for (int i = 0; i < 50000; i++)
                 bf.Add(rand.Next(50000));
 
-            for (int i = 0; i < 5000000; i++)
+            for (int i = 0; i < 2000000; i++)
                 bf.Contains(i % 50000);
         }
 
@@ -129,7 +129,7 @@ namespace UnitTesting
             for (int i = 0; i < 50000; i++)
                 ht.Add(rand.Next(50000));
 
-            for (int i = 0; i < 5000000; i++)
+            for (int i = 0; i < 2000000; i++)
                 ht.Contains(i % 50000);
         }
 
@@ -140,9 +140,9 @@ namespace UnitTesting
 
             Random rand = new Random();
             for (int i = 0; i < 50000; i++)
-                ht.Add(rand.Next(), i);
+                ht.Add(rand.Next(50000), i);
 
-            for (int i = 0; i < 5000000; i++)
+            for (int i = 0; i < 2000000; i++)
                 ht.Contains(i % 50000);
         }
 
@@ -155,7 +155,7 @@ namespace UnitTesting
             for (int i = 0; i < 50000; i++)
                 bst.Insert(rand.Next(50000), i);
 
-            for (int i = 0; i < 5000000; i++)
+            for (int i = 0; i < 2000000; i++)
                 bst.Contains(i % 50000);
         }
     }

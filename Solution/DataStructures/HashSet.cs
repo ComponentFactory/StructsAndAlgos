@@ -48,7 +48,7 @@ namespace DataStructures
         public void Add(T key)
         {
             Link link = GetKeyLink(key);
-            if (link != null)
+            if (link == null)
             {
                 int index = KeyToIndex(key);
 
