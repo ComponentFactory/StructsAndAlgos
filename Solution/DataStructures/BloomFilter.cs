@@ -22,6 +22,9 @@ namespace DataStructures
 
         public BloomFilter(int capacity = 97)
         {
+            if (capacity < 1)
+                throw new ArgumentOutOfRangeException();
+
             _bits = capacity;
             _vector = new int[(_bits / 32) + (_bits % 32 != 0 ? 1 : 0)];
         }
